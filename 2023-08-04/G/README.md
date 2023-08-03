@@ -1,6 +1,6 @@
 # [Dynasty Puzzles](https://codeforces.com/contest/192/problem/C)
 
-Dynamic Programming solution with a 26x26 table such that, for each `i` and `j,
+Dynamic Programming solution with a 26x26 table such that, for each `i` and `j`,
 the number stored in `[i][j]` is the maximum size of dynasty found so far
 starting with letter `i` and ending with letter `j`.
 
