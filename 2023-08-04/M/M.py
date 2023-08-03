@@ -5,7 +5,7 @@ def solve(n, k):
         diff = center-k-1
         if k > center:
             diff = k-center-1
-            s += 'LDLU'*diff + 'L' + 'DR' # coloca alvo no nicho superior esquerdo
+            s += 'LDLU'*diff + 'L' + 'DR' # coloca alvo no nicho superior direito
             s += 'URDR'*(n//2 - 1 - min(k-center, n-2-k))
             s += 'LDRU'
             diff = 0
