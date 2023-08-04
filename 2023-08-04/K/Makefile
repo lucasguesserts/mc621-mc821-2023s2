@@ -1,8 +1,10 @@
-.PHONY: K, clean
+TARGET = K
 
-K:
-	g++ -g -lm -std=c++17 -o K.exec K.cpp
-	./K.exec < in.txt > out.txt
+.PHONY: $(TARGET), clean
+
+$(TARGET):
+	g++ -g -lm -std=c++17 -o $(TARGET).exec $(TARGET).cpp
+	./$(TARGET).exec < in.txt > out.txt
 	@echo -e "\n=== Output ==="
 	@cat out.txt
 	@echo -e "\n=== Diff ==="
@@ -10,6 +12,6 @@ K:
 	@echo -e " "
 
 clean:
-	rm -rf K.exec out.txt
+	rm -rf $(TARGET).exec out.txt
 
 

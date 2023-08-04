@@ -1,8 +1,14 @@
 TARGET = B
 
-$(TARGET): clean
-	python3 $(TARGET).py < in.txt > out.txt
-	diff out.txt answer.txt
+.PHONY: $(TARGET), clean
+
+$(TARGET):
+	python $(TARGET).py < in.txt > out.txt
+	@echo -e "\n=== Output ==="
+	@cat out.txt
+	@echo -e "\n=== Diff ==="
+	@diff out.txt answer.txt || true
+	@echo -e " "
 
 clean:
 	rm -rf out.txt

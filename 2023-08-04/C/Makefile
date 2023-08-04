@@ -2,10 +2,16 @@ TARGET = C
 CC = gcc
 CFLAGS = -std=c11
 
-$(TARGET): clean
+.PHONY: $(TARGET), clean
+
+$(TARGET):
 	$(CC) $(CFLAGS) -o $(TARGET).exec $(TARGET).c
 	./$(TARGET).exec
-	diff output.txt answer.txt
+	@echo -e "\n=== Output ==="
+	@cat output.txt
+	@echo -e "\n=== Diff ==="
+	@diff output.txt answer.txt || true
+	@echo -e " "
 
 clean:
 	rm -rf $(TARGET).exec output.txt

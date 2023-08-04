@@ -1,8 +1,10 @@
-.PHONY: F, clean
+TARGET = F
 
-F:
+.PHONY: $(TARGET), clean
+
+$(TARGET):
 	@for N in 1 2 3 ; do \
-		python F.py < test_cases/in_$$N.txt > test_cases/out_$$N.txt ; \
+		python $(TARGET).py < test_cases/in_$$N.txt > test_cases/out_$$N.txt ; \
 		echo -e "\n=== Case $$N - Output ===" ; \
 		cat test_cases/out_$$N.txt ; \
 		echo -e "\n=== Case $$N - Diff ===" ; \
@@ -11,6 +13,6 @@ F:
 	done
 
 clean:
-	rm -rf F.exec test_cases/out_?.txt
+	rm -rf $(TARGET).exec test_cases/out_?.txt
 
 

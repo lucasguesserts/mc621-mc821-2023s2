@@ -1,7 +1,9 @@
-.PHONY: J, clean
+TARGET = J
 
-J:
-	python J.py < in.txt > out.txt
+.PHONY: $(TARGET), clean
+
+$(TARGET):
+	python $(TARGET).py < in.txt > out.txt
 	@echo -e "\n=== Output ==="
 	@cat out.txt
 	@echo -e "\n=== Diff ==="
@@ -9,6 +11,6 @@ J:
 	@echo -e " "
 
 clean:
-	rm -rf J.exec out.txt
+	rm -rf out.txt
 
 
