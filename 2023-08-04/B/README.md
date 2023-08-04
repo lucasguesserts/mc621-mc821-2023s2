@@ -1,9 +1,7 @@
 # [Tree Master](https://codeforces.com/problemset/problem/1806/E)
 
-## Please note that the current answer hasn't been accepted yet.
-
 This mostly just requires storing the tree and performing the described
-computation algorithm.
+computation algorithm efficiently enough.
 
 The challenge here is the fact that for each instance there may be a large
 number of queries. As such, and considering that `f(x,y)` is dependent on
@@ -14,6 +12,8 @@ This requires having a table that stores for each `x` and `y` *that are on the
 same level on the tree* the result of `f(x,y)` if it has already been
 computed.
 
-Such a table is viable because its size is limited by `h*g`, where `h`
-is the total height of the tree and `g` is its *girth*, i.e., number of nodes
-in the most populated level.
+Moreover, we do *not* want to store pairs for a level of the tree if said level
+has $\Theta(n)$ nodes, since this yields $\Theta(n^2)$ pairs, which is too costly.
+A strategy that can be employed is to store pairs only of levels populated by
+at most $\sqrt{n}$ nodes, resulting in $n$ pairs to be stored.
+
