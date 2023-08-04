@@ -6,7 +6,10 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}.exec",
-            "args": ["<", "in.txt" ],
+            "args": [
+                "<",
+                "in.txt"
+            ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
@@ -24,6 +27,18 @@
                     "ignoreFailures": true
                 }
             ]
+        },
+        {
+            "name": "Python - Case 1",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": [
+                "<",
+                "test_cases/in_1.txt"
+            ],
+            "cwd": "${fileDirname}",
+            "justMyCode": true
         }
     ]
 }
