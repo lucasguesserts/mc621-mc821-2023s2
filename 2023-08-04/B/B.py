@@ -1,37 +1,46 @@
-import sys
+class Node:
+    def __init__(self, weight):
+        self._weight = weight
+        self._parent = None
+        return
 
-def altura(i, alturas, pais):
-    if alturas[i] is None:
-        alturas[i] = 1 + altura(pais[i], alturas, pais)
-    return alturas[i]
+    @property
+    def weight(self):
+        return self._weight
 
-def monta_arvore(n: int):
-    valores = list(map(int, input().split()))
-    pais = [-1] + list(map(lambda s: int(s)-1, input().split()))
-    alturas = [ None ]*n
-    alturas[0] = 0
-    for i in range(n):
-        alturas[i] = altura(i, alturas, pais)
-    return pais, valores, alturas, max(alturas)
+    @property
+    def parent(self):
+        return self._parent
 
-def processa_queries(n, q, pais, valores, alturas, altura_maxima):
-    tabela = [ dict() ]*(altura_maxima + 1)
-    tabela[0][(0,0)] = valores[0]**2
+    @parent.setter
+    def parent(self, parent):
+        self._parent = parent
+        return
 
-    def f(x,y):
-        h = alturas[x] # garantido que é = alturas[y]
-        if (x, y) not in tabela[h]:
-            tabela[h][x,y] = valores[x]*valores[y] + f(pais[x], pais[y])
-        return tabela[h][x,y]
+class Tree:
+    def __init__(self, weights, parents):
+        self.nodes = [Node(w) for w in weights]
+        for node, parent in zip(self.nodes[1:], parents):
+            node.parent = self.nodes[parent]
+        self.f_values = {}
+        return
 
+    def f(self, node_x, node_y):
+        if node_x is None or node_y is None:
+            return 0
+        key = (node_x, node_y)
+        if key not in self.f_values:
+            self.f_values[key] = (node_x.weight * node_y.weight) + self.f(node_x.parent, node_y.parent)
+        return self.f_values[key]
+
+
+if __name__ == "__main__":
+    n, q = [int(x) for x in input().split()]
+    a = [int(x) for x in input().split()]
+    p = [int(x) - 1 for x in input().split()]
+    tree = Tree(a, p)
     for _ in range(q):
-        x, y = map(int, input().split())
-        print(f(x-1,y-1))
-
-def main():
-    sys.setrecursionlimit(int(1e5))
-    n, q = map(int, input().split())
-    pais, valores, alturas, altura_maxima = monta_arvore(n)
-    processa_queries(n, q, pais, valores, alturas, altura_maxima)
-
-main()
+        x, y = [int(x) - 1 for x in input().split()]
+        node_x = tree.nodes[x]
+        node_y = tree.nodes[y]
+        print(tree.f(node_x, node_y))
