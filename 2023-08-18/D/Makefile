@@ -3,13 +3,15 @@ TARGET = D
 .PHONY: $(TARGET), clean
 
 $(TARGET):
-	g++ -lm -std=c++17 -o $(TARGET).exec $(TARGET).cpp
-	./$(TARGET).exec < in.txt > out.txt
-	@echo -e "\n=== Output ==="
-	@cat out.txt
-	@echo -e "\n=== Diff ==="
-	@diff out.txt answer.txt || true
-	@echo -e " "
+	g++ -g -lm -std=c++17 -o $(TARGET).exec $(TARGET).cpp
+	@for N in 1 2 ; do \
+		./$(TARGET).exec < test_cases/in_$$N.txt > test_cases/out_$$N.txt ; \
+		echo -e "\n=== Case $$N - Output ===" ; \
+		cat test_cases/out_$$N.txt ; \
+		echo -e "\n=== Case $$N - Diff ===" ; \
+		diff test_cases/out_$$N.txt test_cases/answer_$$N.txt || true ; \
+		echo -e " " ; \
+	done
 
 clean:
 	rm -rf $(TARGET).exec out.txt
