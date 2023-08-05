@@ -3,7 +3,7 @@ TARGET = A
 .PHONY: $(TARGET), clean
 
 $(TARGET):
-	g++ -lm -std=c++17 -o $(TARGET).exec $(TARGET).cpp
+	g++ -g -lm -std=c++11 -o $(TARGET).exec $(TARGET).cpp
 	./$(TARGET).exec < in.txt > out.txt
 	@echo -e "\n=== Output ==="
 	@cat out.txt
