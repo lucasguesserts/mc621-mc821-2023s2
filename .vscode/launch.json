@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Launch",
+            "name": "c++",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}.exec",
@@ -27,6 +27,18 @@
                     "ignoreFailures": true
                 }
             ]
+        },
+        {
+            "name": "Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": [
+                "<",
+                "in.txt"
+            ],
+            "cwd": "${fileDirname}",
+            "justMyCode": true
         },
         {
             "name": "Python - Case 1",
