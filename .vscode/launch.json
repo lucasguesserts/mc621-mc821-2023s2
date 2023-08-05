@@ -8,7 +8,7 @@
             "program": "${fileDirname}/${fileBasenameNoExtension}.exec",
             "args": [
                 "<",
-                "in.txt"
+                "${fileDirname}/in.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
