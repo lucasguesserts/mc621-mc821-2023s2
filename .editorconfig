@@ -10,3 +10,7 @@ indent_size = 4
 
 [Makefile]
 indent_style = tab
+
+[{in.txt,in_?.txt,answer.txt,answer_?.txt}]
+insert_final_newline = false
+trim_trailing_whitespace = false
