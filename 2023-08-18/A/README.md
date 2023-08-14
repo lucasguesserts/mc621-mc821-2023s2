@@ -1,4 +1,4 @@
-# [PROBLEM_NAME](PROBLEM_LINK)
+# [Balancing Bank Accounts](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=7&page=show_problem&problem=479)
 
 First of all, one has to process the input and compute the balance of all accounts. The account of each traveller starts with `0` and changes with every transaction, and its total can be positive or negative.
 
