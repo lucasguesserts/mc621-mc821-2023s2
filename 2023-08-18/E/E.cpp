@@ -1,54 +1,72 @@
-#include <iostream>
-#include <vector>
-#include <cmath>
 #include <algorithm>
-#include <unordered_map>
+#include <cmath>
+#include <iostream>
+#include <map>
+#include <vector>
 
 using namespace std;
 
-unordered_map<unsigned, vector<unsigned>> M;
+using Number = unsigned int;
+using Size = unsigned int;
+using Sequence = vector<Number>;
+using SequenceMap = map<Number, Sequence>;
 
-vector<unsigned> solve(const unsigned n) {
-    if (n == 1) {
-        return M[1];
-    } else if (n == 2) {
-        return M[2];
+struct Solver {
+
+  SequenceMap sequence_map;
+
+  Solver() {
+    this->sequence_map[1] = {1};
+    this->sequence_map[2] = {1, 2};
+    return;
+  }
+
+  bool has_a_n_sum(const Sequence &sequence, const Number number) {
+    for (auto &value_in_sequence : sequence) {
+      const auto missing_value = number - value_in_sequence;
+      if (binary_search(sequence.begin(), sequence.end(), missing_value)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Sequence get_smallest_sequence(const Number number) {
+    Size smallest_sequence_size = 1000000000;
+    Sequence smallest_sequence;
+    for (Number k = 1; k < number; ++k) {
+      const auto &k_sequence = this->solve(k);
+      if (has_a_n_sum(k_sequence, number) &&
+          (k_sequence.size() < smallest_sequence_size)) {
+        smallest_sequence = k_sequence;
+        smallest_sequence_size = k_sequence.size();
+      }
+    }
+    return smallest_sequence;
+  }
+
+  const Sequence &solve(const unsigned number) {
+    if (this->sequence_map.find(number) != this->sequence_map.end()) {
+      return this->sequence_map[number];
     } else {
-        unsigned min_len = 1000000000;
-        for (auto i = 0u; i < (decltype(n)) floor(n/2.0); ++i) {
-            auto l = solve(n-i);
-            auto u = solve(i);
-
-        }
+      auto smallest_sequence = this->get_smallest_sequence(number);
+      smallest_sequence.push_back(number);
+      this->sequence_map[number] = smallest_sequence;
+      return this->sequence_map[number];
     }
-}
+  }
+};
 
-int main () {
-    M[1] = {1};
-    M[2] = {2, 1};
-    auto n = unsigned{1};
-    while (true) {
-        // input
-        cin >> n;
-        if (n == 0) break;
-        auto s = vector<decltype(n)>{n};
-        // solution
-        auto x = n;
-        while (x != 1) {
-            auto c = (decltype(n)) ceil(x/2.0);
-            auto f = (decltype(n)) floor(x/2.0);
-            s.push_back(c);
-            if (c != f) {
-                s.push_back(f);
-            }
-            x = f;
-        }
-        reverse(s.begin(), s.end());
-        // output
-        for (const auto & v : s) {
-            cout << v << " ";
-        }
-        cout << endl;
+int main() {
+  auto solver = Solver();
+  Number number = 1;
+  while(number != 0){
+    cin >> number;
+    const auto &sequence = solver.solve(number);
+    for (const auto &value : sequence) {
+      cout << value << " ";
     }
-    return 0;
+    cout << endl;
+  }
+  return 0;
 }
