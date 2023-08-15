@@ -3,7 +3,7 @@ TARGET = I
 .PHONY: $(TARGET), clean
 
 $(TARGET):
-	@for N in 1 2 ; do \
+	@for N in 1 2 3 ; do \
 		python $(TARGET).py < test_cases/in_$$N.txt > test_cases/out_$$N.txt ; \
 		echo -e "\n=== Case $$N - Output ===" ; \
 		cat test_cases/out_$$N.txt ; \
