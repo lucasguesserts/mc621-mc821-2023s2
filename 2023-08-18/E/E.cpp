@@ -1,72 +1,75 @@
-#include <algorithm>
-#include <cmath>
 #include <iostream>
-#include <map>
-#include <vector>
+#include <cstdint>
+
+#define MAXN    100
+
+// typedef unsigned value_t;
+typedef uint64_t value_t;
+typedef struct { value_t mat[MAXN][MAXN]; } Matrix;
+
+Matrix adj;
+Matrix pot;
+Matrix aux;
 
 using namespace std;
 
-using Number = unsigned int;
-using Size = unsigned int;
-using Sequence = vector<Number>;
-using SequenceMap = map<Number, Sequence>;
+void initialize_matrices(int n) {
+    int i, j;
+    for (i = 0; i < n; i++)
+        for (j = 0; j < n; j++)
+            adj.mat[i][j] = pot.mat[i][j] = 0;
+}
 
-struct Solver {
-
-  SequenceMap sequence_map;
-
-  Solver() {
-    this->sequence_map[1] = {1};
-    this->sequence_map[2] = {1, 2};
-    return;
-  }
-
-  bool has_a_n_sum(const Sequence &sequence, const Number number) {
-    for (auto &value_in_sequence : sequence) {
-      const auto missing_value = number - value_in_sequence;
-      if (binary_search(sequence.begin(), sequence.end(), missing_value)) {
-        return true;
-      }
+void read_matrix(int m) {
+    int u, v;
+    while (m--) {
+        scanf("%d %d", &u, &v);
+        pot.mat[u][v] = pot.mat[v][u] = adj.mat[u][v] = adj.mat[v][u] = 1;
     }
-    return false;
-  }
+}
 
-  Sequence get_smallest_sequence(const Number number) {
-    Size smallest_sequence_size = 1000000000;
-    Sequence smallest_sequence;
-    for (Number k = 1; k < number; ++k) {
-      const auto &k_sequence = this->solve(k);
-      if (has_a_n_sum(k_sequence, number) &&
-          (k_sequence.size() < smallest_sequence_size)) {
-        smallest_sequence = k_sequence;
-        smallest_sequence_size = k_sequence.size();
-      }
-    }
-    return smallest_sequence;
-  }
+value_t dot(Matrix A, int line, Matrix B, int col, int n) {
+    value_t res = 0;
+    int k;
+    for (k = 0; k < n; k++)
+        res += A.mat[line][k]*B.mat[k][col];
+    return res;
+}
 
-  const Sequence &solve(const unsigned number) {
-    if (this->sequence_map.find(number) != this->sequence_map.end()) {
-      return this->sequence_map[number];
-    } else {
-      auto smallest_sequence = this->get_smallest_sequence(number);
-      smallest_sequence.push_back(number);
-      this->sequence_map[number] = smallest_sequence;
-      return this->sequence_map[number];
-    }
-  }
-};
+Matrix matrix_mul(Matrix A, Matrix B, int n) {
+    int i, j;
+    for (i = 0; i < n; i++)
+        for (j = 0; j < n; j++)
+            aux.mat[i][j] = dot(A, i, B, j, n);
+    return aux;
+}
+
+void matrix_pot(int n, int p) {
+    if (p == 1) return;
+    matrix_pot(n, p/2);
+    pot = matrix_mul(pot, pot, n);
+    if (p % 2) pot = matrix_mul(pot, adj, n);
+}
+
+value_t paths_from_source(int s, int n) {
+    value_t res = 0;
+    int t;
+    for (t = 0; t < n; t++)
+        res += pot.mat[s][t];
+    return res;
+}
 
 int main() {
-  auto solver = Solver();
-  Number number = 1;
-  while(number != 0){
-    cin >> number;
-    const auto &sequence = solver.solve(number);
-    for (const auto &value : sequence) {
-      cout << value << " ";
+    int n, m, s, t;
+    cin >> n >> m >> s >> t; 
+    initialize_matrices(n);
+    read_matrix(m);
+    if (t > 0) {
+        matrix_pot(n, t);
+        cout << paths_from_source(s, n) << endl;
     }
-    cout << endl;
-  }
-  return 0;
+    else {
+        cout << "0" << endl;
+    }
+    return 0;
 }
