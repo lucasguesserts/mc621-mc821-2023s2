@@ -2,13 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Launch",
+            "name": "c++",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}.exec",
             "args": [
                 "<",
-                "in.txt"
+                "${fileDirname}/in.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
@@ -27,6 +27,45 @@
                     "ignoreFailures": true
                 }
             ]
+        },
+        {
+            "name": "c++ - case 1",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}.exec",
+            "args": [
+                "<",
+                "${fileDirname}/test_cases/in_1.txt"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": [
+                "<",
+                "in.txt"
+            ],
+            "cwd": "${fileDirname}",
+            "justMyCode": true
         },
         {
             "name": "Python - Case 1",

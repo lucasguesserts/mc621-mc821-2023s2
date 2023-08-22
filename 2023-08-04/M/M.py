@@ -1,20 +1,19 @@
 def solve(n, k):
-    s = ''
-    center = n//2 
-    if k != center:
-        diff = center-k-1
-        if k > center:
-            diff = k-center-1
-            s += 'LDLU'*diff + 'L' + 'DR' # coloca alvo no nicho superior direito
-            s += 'URDR'*(n//2 - 1 - min(k-center, n-2-k))
-            s += 'LDRU'
-            diff = 0
-        s += 'RDRU'*diff + 'R'
-    s += 'DL'
-    return s
+    p = n - 2
+    f = 1
+    m = (p + 1) / 2
+    b = m - 1
+    a = m + 1
+    l = p
+    if k == m:
+        return "DL"
+    elif f <= k <= b:
+        return "L" + (k - 1) * "DRUL"
+    else:
+        return "R" + (l - k) * "DLUR" + p * "URDR" + "LDRURDL"
 
-def main():
+
+if __name__ == "__main__":
     n, k = map(int, input().split())
-    print(solve(n,k))
-
-main()
+    solution = solve(n, k)
+    print(solution)
