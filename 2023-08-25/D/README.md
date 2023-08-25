@@ -11,5 +11,5 @@ our custom representation in base 9. This conversion takes time proportional
 to the length of the representation of $k$ in base 10, i.e. $O(\log k)$, which
 is adequate since $k$ can go up to $10^{12}$.
 
-Beware: the maximum number~$k$ that can be given as input does not fit into
+Beware: the maximum number $k$ that can be given as input does not fit into
 standard `unsigned` (32-bit). You may use `uint64_t` or other equivalent.
