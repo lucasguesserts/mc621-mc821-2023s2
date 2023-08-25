@@ -14,9 +14,13 @@ Finally, since we are not distinguishing for the order in which the groups of
 size $n/2$ dance, we have to divide our results by 2.
 
 This amounts to
-$$ \frac{n!}{(n/2)!^2}\frac{(n/2)!}{n/2}\frac{(n/2)!}{n/2}\frac{1}{2} $$,
-simplifying to
-$ \frac{n!}{2 (n/2)^2}$
+
+$$ \frac{n!}{(n/2)!^2}\frac{(n/2)!}{n/2}\frac{(n/2)!}{n/2}\frac{1}{2} $$
+
+which simplifies to
+
+$$ \frac{n!}{2 (n/2)^2}$$
+
 distinct dances.
 
 This can be further simplified, but pay attention to small $n$.
