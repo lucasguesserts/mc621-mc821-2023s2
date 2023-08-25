@@ -20,8 +20,9 @@ digit $d$, then each query would be easy to process: we would sum `t[d][m]`
 for each digit $d$ of the input.
 
 However, you may find that:
-    1. such a table $t$ carries a lot of redundancy, since `t[d][m] == t[d-1][m+1]`;
-    2. when computing the resulting length of digit $d$, there are two cases:
+
+1. such a table $t$ carries a lot of redundancy, since `t[d][m] == t[d-1][m+1]`;
+2. when computing the resulting length of digit $d$, there are two cases:
 either $d+m < 10$ and the length remains 1; or $d + m \geq 10$ which means
 the number 10 eventually appears in the sequence of operations.
 
@@ -30,9 +31,10 @@ table $r$ such that, for each $m$, `r[m]` stores the result of applying
 $m$ steps to the specific sequence `10`.
 
 How do we compute $r$?
-    * `r[m] = 2` for each $0 \leq m \leq 8", since the length is maintained;
-    * `r[9] = 3`, since the resulting string is 109 (10 -> 21 -> 32 -> ... -> 98 -> 109);
-    * `r[m] = r[m-9] + r[m-10]` when $m \geq 10$. This is because in the initial string
+
+* `r[m] = 2` for each $0 \leq m \leq 8", since the length is maintained;
+* `r[9] = 3`, since the resulting string is 109 (10 -> 21 -> 32 -> ... -> 98 -> 109);
+* `r[m] = r[m-9] + r[m-10]` when $m \geq 10$. This is because in the initial string
     `10`, the `1` on the left becomes a `10` after 9 operations and the `0` on
     the right becomes a `10` after 10 operations.
 
