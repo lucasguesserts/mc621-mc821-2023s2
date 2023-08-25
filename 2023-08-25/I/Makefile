@@ -3,8 +3,7 @@ TARGET = I
 .PHONY: $(TARGET), clean
 
 $(TARGET):
-	g++ -g -lm -std=c++17 -o $(TARGET).exec $(TARGET).cpp
-	./$(TARGET).exec < in.txt > out.txt
+	java ./$(TARGET).java < in.txt > out.txt
 	@echo -e "\n=== Output ==="
 	@cat out.txt
 	@echo -e "\n=== Diff ==="
