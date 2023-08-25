@@ -8,7 +8,7 @@ respectively 0, 1, 2, 3, 4, 5, 6, 7, 8.
 
 Thus, given $k$ in decimal representation, we are asked to output $k$ in
 our custom representation in base 9. This conversion takes time proportional
-to the length of the representation of $k$ in base 10, i.e. $O(log k)$, which
+to the length of the representation of $k$ in base 10, i.e. $O(\log k)$, which
 is adequate since $k$ can go up to $10^{12}$.
 
 Beware: the maximum number~$k$ that can be given as input does not fit into
