@@ -3,7 +3,7 @@
 There are infinitely many possible turn $1, 2, 3, \ldots$  in the game.
 Turn $j$ wins with probability
 
-$$ (1-p)^(j-1) p $$
+$$ (1-p)^{j-1} p $$
 
 i.e. it is necessary that the previous turns lose and $j$ wins. It is not
 hard to verify that the sum of the above expression for every $j$ is 1, meaning
