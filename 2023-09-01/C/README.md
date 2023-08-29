@@ -1,7 +1,7 @@
 # [What is the Probability?](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=997)
 
-There are infinitely many possible turn $1, 2, 3, \ldots$  in the game.
-Turn $j$ wins with probability
+There are infinitely many possible turns $1, 2, 3, \ldots$  in the game.
+Turn $j$ is the winner with probability
 
 $$ (1-p)^{j-1} p $$
 
@@ -9,9 +9,8 @@ i.e. it is necessary that the previous turns lose and $j$ wins. It is not
 hard to verify that the sum of the above expression for every $j$ is 1, meaning
 it makes sense as a probability function.
 
-We have $N$ players, and so we are going
-to model it in this way: for each $i \in \{1, 2, \ldots, N\}$, player $i$
-wins if the winning turn is $i + kN$ for any nonnegative integer $k$.
+We have $N$ players, so for $i = {1, 2, \ldots, N}$, player $i$
+wins if the winning turn is $i + kN$ for some integer $k\geq 0$.
 
 Thus, defining $q := 1-p$, the probability of player $i$ winning is
 
@@ -23,3 +22,10 @@ $$
         &= \frac{q^{i-1}(1-q)}{1-q^N}
 \end{align\*}
 $$
+
+requiring only a straightforward implementation.
+
+It should be noted that for $p = 0$ the above expression is mathematically
+equal to zero, however from a numerical standpoint it is best to treat such
+a case separately. (My solution returned `-NaN` in such cases, which I did not
+investigate further.)
