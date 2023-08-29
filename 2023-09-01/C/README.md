@@ -1,5 +1,10 @@
 # [What is the Probability?](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=997)
 
+First, notice that if $p = 0$ the problem becomes easy: no player has
+any hope of winning, i.e. the probability is $0$ regardless of who is the
+target player. Treat this case separately and assume $p > 0$ for the following
+explanation.
+
 There are infinitely many possible turns $1, 2, 3, \ldots$  in the game.
 Turn $j$ is the winner with probability
 
@@ -24,8 +29,4 @@ $$
 $$
 
 requiring only a straightforward implementation.
-
-It should be noted that for $p = 0$ the above expression is mathematically
-equal to zero, however from a numerical standpoint it is best to treat such
-a case separately. (My solution returned `-NaN` in such cases, which I did not
-investigate further.)
+Remember once more that we are assuming $p > 0$ (and thus $1-q^N$ is nonzero).
