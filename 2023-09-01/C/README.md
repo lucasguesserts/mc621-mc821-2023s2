@@ -20,12 +20,12 @@ wins if the winning turn is $i + kN$ for some integer $k\geq 0$.
 Thus, defining $q := 1-p$, the probability of player $i$ winning is
 
 $$
-\begin{align\*}
+\begin{align*}
     \sum_{k \geq 0} (1-p)^{i + kN -1} p
         &= \sum_{k \geq 0} p(1-p)^{i-1}\left((1-p)^N\right)^k \\
         &= q^{i-1} (1-q) \sum_{k\geq 0} (q^N)^k \\
         &= \frac{q^{i-1}(1-q)}{1-q^N}
-\end{align\*}
+\end{align*}
 $$
 
 requiring only a straightforward implementation.
