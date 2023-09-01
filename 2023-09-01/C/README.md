@@ -1,4 +1,4 @@
-# [What is the Probability?](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=997)
+# [What is the Probability?](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=12&page=show_problem&problem=997)
 
 First, notice that if $p = 0$ the problem becomes easy: no player has
 any hope of winning, i.e. the probability is $0$ regardless of who is the
