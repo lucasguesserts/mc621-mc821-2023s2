@@ -1,4 +1,4 @@
-# [In Search of Truth (Hard Version)](https://codeforces.com/problemset/problem/1840/G2)
+# [In Search of Truth (Easy Version)](https://codeforces.com/contest/1840/problem/G1)
 
 Let `a1,a2,…,an` be the numbers of the sectors in clockwise order, and let the arrow initially point to the sector with number a1.
 
