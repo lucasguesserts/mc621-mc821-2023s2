@@ -1,19 +1,55 @@
-# [12114 - Bachelor Arithmetic](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3266)
+# [Game with Board](https://codeforces.com/problemset/problem/1841/A)
+
+## `n = 2`
 
 ```plain
-if (B == 1)
-    print :-\
-
-before = min(1, S/B)
-after = min(1, (S-1)/(B-1))
-
-if (after < before)
-    print :-(
-if (after > before)
-    print :-)
-if after == before
-    print :-|
+1 1 <- Alice
+2 <- Bob
 ```
 
-Yes, it is that simple!
+Bob wins.
 
+## `n = 3`
+
+```plain
+1 1 1 <- Alice
+2 1 <- Bob
+
+or
+
+1 1 1 <- Alice
+3 <- Bob
+```
+
+In all cases, Bob wins.
+
+## `n = 4`
+
+```plain
+1 1 1 1 <- Alice
+4 <- Bob
+
+or
+
+1 1 1 1 <- Alice
+3 1 <- Bob
+
+or
+
+1 1 1 1 <- Alice
+2 1 1 <- Bob
+2 2 <- Alice
+4 <- Bob
+```
+
+In all cases, Bob wins.
+
+## `n >= 5`
+
+```plain
+1 1 ... 1 <- Alice
+n-2 1 1 <- Bob
+n-2 2 <- Alice
+```
+
+Alice can win in all cases if she plays optimally (which, by hypothesis, is the case). Thus, Alice wins.
