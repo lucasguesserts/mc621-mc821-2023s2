@@ -27,16 +27,11 @@ void sieve(uint32_t sieve_limit) {
  * Requires having ran sieve up to sqrt(n) at least.
 **/
 uint32_t first_divisor(uint32_t n) {
-    uint32_t last_prime;
     for (auto p : _primes) {
         if (p > n) break;
         if (n % p == 0)
             return p;
-        last_prime = p;
     }
-    for (uint32_t candidate = last_prime + 2; candidate*candidate <= n; candidate += 2)
-        if (n % candidate == 0)
-            return candidate;
     return n; // n is prime
 }
 
