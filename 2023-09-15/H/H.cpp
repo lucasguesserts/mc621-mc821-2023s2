@@ -1,26 +1,24 @@
 #include <algorithm>
 #include <iostream>
-#include <queue>
-#include <utility>
 
 using Number = long long unsigned int;
 
 struct Pair {
-  const Number high;
-  const Number low;
+  Number high;
+  Number low;
 
   Pair(const Number high, const Number low)
-      : high(std::move(high)), low(std::move(low)) {}
+      : high(high), low(low) {}
 
-  auto operate_set_high() const -> Pair {
+  auto operate_set_high() -> void {
     const auto diff = this->diff();
     if (diff >= this->low) {
-      const auto new_pair = Pair(diff, this->low);
-      return new_pair;
+        this-> high = diff;
     } else {
-      const auto new_pair = Pair(this->low, diff);
-      return new_pair;
+        this-> high = this->low;
+        this->low = diff;
     }
+    return;
   }
 
   auto is_valid(const Number target) const -> bool {
@@ -36,23 +34,19 @@ struct Pair {
 
 struct Xmagic {
   Xmagic(const Number a, const Number b, const Number x)
-      : high(std::max(a, b)), low(std::min(a, b)), target(x), queue(),
-        solution_found(false), solution(nullptr) {
-    this->queue.push(Pair(this->high, this->low));
-    return;
-  };
+      : high(std::max(a, b)), low(std::min(a, b)), target(x), pair(high, low),
+        solution_found(false){};
 
   auto solve() -> void {
-    while (!queue.empty()) {
-      const auto pair = this->get_next();
+    while (true) {
       if (pair.meets_target(this->target)) {
         this->solution_found = true;
-        this->solution = new Pair(pair);
+        break;
       }
       if (!pair.is_valid(this->target)) {
-        continue;
+        break;
       }
-      this->step(pair);
+      this->pair.operate_set_high();
     }
     return;
   }
@@ -60,20 +54,8 @@ struct Xmagic {
   const Number high;
   const Number low;
   const Number target;
-  std::queue<Pair> queue;
+  Pair pair;
   bool solution_found;
-  Pair *solution;
-
-  auto get_next() -> Pair {
-    const auto pair = this->queue.front();
-    this->queue.pop();
-    return pair;
-  }
-
-  auto step(const Pair &pair) -> void {
-    this->queue.push(pair.operate_set_high());
-    return;
-  }
 };
 
 int main() {
