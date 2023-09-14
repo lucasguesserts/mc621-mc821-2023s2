@@ -8,24 +8,17 @@ using Number = long long unsigned int;
 struct Pair {
   const Number high;
   const Number low;
-  const bool can_set_low_flag;
 
-  Pair(const Number high, const Number low, const bool can_set_low_flag)
-      : high(std::move(high)), low(std::move(low)),
-        can_set_low_flag(can_set_low_flag) {}
-
-  auto operate_set_low() const -> Pair {
-    const auto new_pair = Pair(this->high, this->diff(), false);
-    return new_pair;
-  }
+  Pair(const Number high, const Number low)
+      : high(std::move(high)), low(std::move(low)) {}
 
   auto operate_set_high() const -> Pair {
     const auto diff = this->diff();
     if (diff >= this->low) {
-      const auto new_pair = Pair(diff, this->low, true);
+      const auto new_pair = Pair(diff, this->low);
       return new_pair;
     } else {
-      const auto new_pair = Pair(this->low, diff, true);
+      const auto new_pair = Pair(this->low, diff);
       return new_pair;
     }
   }
@@ -45,7 +38,7 @@ struct Xmagic {
   Xmagic(const Number a, const Number b, const Number x)
       : high(std::max(a, b)), low(std::min(a, b)), target(x), queue(),
         solution_found(false), solution(nullptr) {
-    this->queue.push(Pair(this->high, this->low, true));
+    this->queue.push(Pair(this->high, this->low));
     return;
   };
 
@@ -79,9 +72,6 @@ struct Xmagic {
 
   auto step(const Pair &pair) -> void {
     this->queue.push(pair.operate_set_high());
-    if (pair.can_set_low_flag) {
-      this->queue.push(pair.operate_set_low());
-    }
     return;
   }
 };
