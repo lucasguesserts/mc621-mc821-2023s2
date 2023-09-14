@@ -1,48 +1,118 @@
-# [10179 - Irreducable Basic Fractions](https://onlinejudge.org/index.php?option=onlinejudge&Itemid=99999999&page=show_problem&category=0&problem=1120&mosmsg=Submission+received+with+ID+28767712)
+# [1612 - D - X-Magic Pair](https://codeforces.com/problemset/problem/1612/D)
 
-## The Real Problem
+## Definitions
 
-At first, the problem seems easy to solve: given $n \in \mathbb{N}$, take the numbers $[0, n - 1] \subset \mathbb{N}$ and remove the ones which are multiples of the prime factors of $n$.
+For all this documentation, consider the pair $p$ of values as being composed of a high value $h \in \mathbb{Z}_+$, the first one, and a low value $l \in \mathbb{Z}_+$, the second one:
 
-Doing it by brute force is not viable, that would require too many computations. But one just need to count, and that seems easy too: given the prime factor $p$ of $n$, the quantity of number in $[0, n - 1]$ which are multiples of $p$ is $\left\lfloor \dfrac{n - 1}{p} \right\rfloor$. Thus, counting those and subtracting from $n-1$ is enough, right?
+$$ p = \left\langle h, l \right\rangle \in \mathbb{Z}_+ \times \mathbb{Z}_+$$
 
-Unfortunately, no, it is not. Given two prime factors $p_x, p_y$, with such procedure one would subtract the multiples of $p_x p_y$ twice. But even if one considers that, given another prime factor $p_z$, the multiples of $p_x p_y p_z$ would not be counted (they would be removed twice).
+## About the Operations
 
-The solution for the problem is simple: let $n = p_1^{e_1} \cdot \dots p_k^{e_k}$. Any time one gets an odd number of prime factors, one will subtract the number of multiples of the least common multiple. And any time one gets an even number of prime factors, one will add.
+(Note that $\left|h - l\right| = \left|l - h\right| = h - l$).
 
-The idea is that with the odd we are discarding the multiples considered twice (but we are also discarding some multiples twice), and with the even we are correcting the calculation.
+There are two operations:
 
-## Algorithm
+* **Operation L**: replace $l$ by $h - l$;
+* **Operation H**: replace $h$ by $h - l$;
 
-Let $n \in \mathbb{N}$ as in the statement of the problem. The algorithm is as follows:
+Let's see what we get from each one of them.
 
-1. compute the prime factorization of $n$:
+### Opearation L
 
-   $$ n = p_1^{e_1} \cdot \dots p_k^{e_k} $$
+$$
+\left\langle h, l \right\rangle
+\rightarrow
+\left\langle h, h - l \right\rangle
+\rightarrow
+\begin{cases}
+    \left\langle h, h - (h - l) \right\rangle = \left\langle h, l \right\rangle, \text{Operation L}\\
+    \left\langle h - (h - l), h - l \right\rangle = \left\langle l, h - l \right\rangle, \text{Operation H} \land l \geqslant h - l\\
+    \left\langle h - l, h - (h - l) \right\rangle = \left\langle h - l, l \right\rangle, \text{Operation H} \land l < h - l
+\end{cases}
+$$
 
-2. get the set of such prime numbers:
+Thus, there are three values we may get:
 
-   $$ s = \{ p_1, \dots, p_k \} $$
+1. $\left\langle h, l \right\rangle$
+2. $\left\langle l, h - l \right\rangle$, if $l \geqslant h - l$
+3. $\left\langle h - l, l \right\rangle$, if $l < h - l$
 
-3. get the power set of those prime numbers:
+Notice that the first one does not interest us because it is the original pair. Also, the last two values are the same, with the difference being the order of the values. Moreover, we are going to see in the next section that we can also get them, by applying the Operation H.
 
-   $$ S = \mathcal{P}(s) $$
+## Operation H
 
-4. for each set of $S$, compute the signed number of multiples that the least common factor of the numbers in $s$ have up to $n-1$:
+$$
+\left\langle h, l \right\rangle
+\rightarrow
+\begin{cases}
+    \left\langle l, h - l \right\rangle, \text{if } l > h - l\\
+    \left\langle h - l, l \right\rangle, \text{if } l \leqslant h - l
+\end{cases}
+$$
 
-   $$ M = \{(-1)^{|s|} \ \left\lfloor \dfrac{n - 1}{lcm(s)} \right\rfloor : s \in S\} $$
+### Conclusion
 
-   1. for the set $s = \{e_1, \dots, e_j\}$, we have $lcm(s) = lcm(e_1, \dots, e_j)$, the least common multiple of all elements of the set $s$;
-   2. $(-1)^{|s|}$ is equals to $1$ when $s$ has an even number of elements, and $-1$ when it has an odd number of elements;
-   3. $\left\lfloor \dfrac{x}{y} \right\rfloor$ is the number of multiples of $y$ smaller or equals $x$ that exist;
-5. compute the number of irreducible basic fractions as:
+As we can see, we do not need the Operation L, just the Operation H.
 
-   $$ c = n - 1 + \displaystyle\sum\limits_{m \in M} v $$
+Moreover, we can always assume that $l \leqslant \min(l, h - l)$ because, it that is not the case, we can apply an Operation L to get such pair (make $l = h - l$). It doesn't make any difference because we still get all the pairs we would get starting with the original pair. Thus:
 
-   1. $n$ because there are $n$ valid fractions;
-   2. $-1$ because $\frac{1}{n}$ is not considered a irreducible basic fractions;
-   3. the terms $m \in M$ correspont to the multiples of the prime factors of $n$;
+$$
+\left\langle h, l \right\rangle
+\rightarrow
+\left\langle h - l, l \right\rangle
+$$
 
-Some boundary conditions:
+## Naive Algorithm
 
-1. if `n == 1`, give `1` as answer;
+```plain
+solve(h, l, x):
+    if h == x or $l == x$, then YES;
+    if x > \max(h, l), then NO;
+    if h == 0 or l == 0, then NO;
+    if h < l, then swap(h, l);
+    l = min(l, h - l);
+    h = h - l;
+    return solve(h, l, x);
+```
+
+## Optimizing the Algorithm
+
+The problem with the previous algorithm is that it may repeate the operation $h = h - l$ many times. We can skip most of them.
+
+First, let's look for the number $\alpha \in \mathbb{Z}_+$ such that $x = h - \alpha \cdot l$ (if it exists). That number can be computed as:
+
+$$ \alpha = \dfrac{h - x}{l} $$
+
+If the number we are looking for exist, such calculation will be an integer number.
+
+If we cannot get $x$ yet, then we want to skip as many operations as possible. In other words, what we want is to find the smallest number $\beta \in \mathbb{Z}_+$ such that $l > h - \beta \cdot b$, it is the number of times we have to perform the operation for the values of the pair to swap places. That $k$ can be computed as:
+
+$$ \beta = \left\lceil \dfrac{h - l}{l} \right\rceil $$
+
+What we are going to do is to perform both searches at the same time, with the drawback of maybe having to run the Operation H twice. We are going to compute:
+
+$$ \gamma = \max\left(1, \left\lfloor \dfrac{h - \max(x, l)}{l} \right\rfloor \right)$$
+
+Notice that:
+
+1. it will perform at least one Operation H;
+2. $\gamma \leqslant \alpha$ and $\gamma \leqslant \beta$;
+   1. and it will give us the smallest of them (more or less);
+3. with $\gamma$, we save some steps in the computation process, thus optimizing the algorithm;
+
+## Optimized Algorithm
+
+```plain
+solve(h, l, x):
+    if h == x or $l == x$, then YES;
+    if x > \max(h, l), then NO;
+    if h == 0 or l == 0, then NO;
+    if h < l, then swap(h, l);
+    l = min(l, h - l);
+    h = max(1, (h - max(x, l)) / l);
+    return solve(h, l, x);
+```
+
+## Catches
+
+In this problem, the numbers are too big, and they may not fit into a double precision number (I got an error for converting a number to double, overflow). Therefore, all operations must stick to integral values.

@@ -1,76 +1,36 @@
 #include <algorithm>
+#include <cmath>
 #include <iostream>
 
-using Number = long long unsigned int;
+using Number = long long int;
 
-struct Pair {
-  Number high;
-  Number low;
-
-  Pair(const Number high, const Number low)
-      : high(high), low(low) {}
-
-  auto operate_set_high() -> void {
-    const auto diff = this->diff();
-    if (diff >= this->low) {
-        this-> high = diff;
-    } else {
-        this-> high = this->low;
-        this->low = diff;
-    }
-    return;
+bool solve(Number high, Number low, Number target) {
+  if (high == target || low == target) {
+    return true;
   }
-
-  auto is_valid(const Number target) const -> bool {
-    return this->high > target;
+  if (high < low) {
+    std::swap(high, low);
   }
-
-  auto meets_target(const Number target) const -> bool {
-    return (this->high == target) || (this->low == target);
+  low = std::min(low, high - low);
+  if (target > std::max(high, low) || high == 0 || low == 0) {
+    return false;
   }
-
-  auto diff() const -> Number { return this->high - this->low; }
-};
-
-struct Xmagic {
-  Xmagic(const Number a, const Number b, const Number x)
-      : high(std::max(a, b)), low(std::min(a, b)), target(x), pair(high, low),
-        solution_found(false){};
-
-  auto solve() -> void {
-    while (true) {
-      if (pair.meets_target(this->target)) {
-        this->solution_found = true;
-        break;
-      }
-      if (!pair.is_valid(this->target)) {
-        break;
-      }
-      this->pair.operate_set_high();
-    }
-    return;
-  }
-
-  const Number high;
-  const Number low;
-  const Number target;
-  Pair pair;
-  bool solution_found;
-};
+  Number k = std::max(Number(1), (high - std::max(target, low)) / low);
+  return solve(high - low * k, low, target);
+}
 
 int main() {
-  auto number_of_test_cases = Number(0);
-  std::cin >> number_of_test_cases;
-  for (auto test_case_index = Number(0); test_case_index < number_of_test_cases;
-       ++test_case_index) {
-    auto a = Number(0);
-    auto b = Number(0);
-    auto x = Number(0);
+  int t;
+  std::cin >> t;
+  while (t--) {
+    Number a, b, x;
     std::cin >> a >> b >> x;
-    auto magic = Xmagic(a, b, x);
-    magic.solve();
-    const auto answer = magic.solution_found ? "YES" : "NO";
-    std::cout << answer << std::endl;
+    if (solve(a, b, x)) {
+      std::cout << "YES" << std::endl;
+    } else {
+      std::cout << "NO" << std::endl;
+    }
   }
+
   return 0;
 }
