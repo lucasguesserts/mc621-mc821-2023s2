@@ -7,7 +7,7 @@ Given that $gcd(a, b, c) = gcd(a, gcd(b, c))$, computing the GCD of $n$ numbers 
 $n$ calls to function `gcd`.
 
 The straightforward solution (manually computing $O(nm)$ GCD's) is simply too expensive
-since both $n$ and $m$ could be up to $2\cdot 10^5$ meaning $4\cdot 10^10$ calls to function
+since both $n$ and $m$ could be up to $2\cdot 10^5$ meaning $4\cdot 10^{10}$ calls to function
 `gcd`.
 
 The speedup this problem is looking for is as follows: realize that $gcd(a, b) = gcd(a, b-a)$.
@@ -26,7 +26,7 @@ $G_j$ is simply
 
 $$ G_j = gcd(a_1 + b_j, G_a) $$
 
-so we can compute the output in only $O(n + m)$ calls to `gcd`.
+so we can compute the whole output in only $O(n + m)$ calls to `gcd`.
 
 A few traps:
 
