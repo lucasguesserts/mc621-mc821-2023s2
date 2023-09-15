@@ -7,7 +7,7 @@
 
 using namespace std;
 
-using N = long int;
+using N = long long int;
 using VN = vector<N>;
 using VVN = vector<vector<N>>;
 using VB = vector<bool>;
@@ -27,9 +27,9 @@ N gcd(VN &A) {
 
 VN SoE(N n) {
   VN primes;
-  VB numbers(n+1, true);
+  VB numbers(n + 1, true);
   numbers[0] = numbers[1] = false;
-  for (auto i = 2; i <= n; ++i) {
+  for (auto i = N(2); i <= n; ++i) {
     if (numbers[i]) {
       primes.push_back(i);
       for (auto j = i * i; j <= n; j += i) {
@@ -40,42 +40,18 @@ VN SoE(N n) {
   return primes;
 }
 
-VN prime_factors(N x, VN &primes) {
-  VN f;
-  for (auto p : primes) {
-    if (x % p == 0) {
-      f.push_back(p);
-      while (x % p == 0) {
-        x /= p;
+N count_max_present_prime(VN &primes, VN &A) {
+  N maximum = 0;
+  for (auto &p : primes) {
+    N count = 0;
+    for (auto &a : A) {
+      if (a % p == 0) {
+        ++count;
       }
     }
+    maximum = max(maximum, count);
   }
-  if (x != 1) {
-    f.push_back(x);
-  }
-  return f;
-}
-
-MN count_factors(VVN & fs) {
-  MN m;
-  for (auto &f : fs) {
-    for (auto &p : f) {
-      if (m.count(p) == 0) {
-        m[p] = 1;
-      } else {
-        m[p] += 1;
-      }
-    }
-  }
-  return m;
-}
-
-N max_count_present(MN & m) {
-    N maximum = -1;
-    for (auto & v : m) {
-        maximum = max(maximum, v.second);
-    }
-    return maximum;
+  return maximum;
 }
 
 int main() {
@@ -85,7 +61,7 @@ int main() {
   // input
   cin >> n;
   A.reserve(n);
-  for (auto i = 0; i < n; ++i) {
+  for (auto i = N(0); i < n; ++i) {
     N a;
     cin >> a;
     A.push_back(a);
@@ -93,19 +69,11 @@ int main() {
   // solution
   N g = gcd(A);
   transform(A.begin(), A.end(), A.begin(), [&g](N x) { return x / g; });
-  g = gcd(A);
   N m = *max_element(A.begin(), A.end());
-  N sieve_size = int_sqrt(m);
-  VN primes = SoE(sieve_size);
-  VVN fs;
-  transform(A.begin(), A.end(), back_inserter(fs),
-            [&primes](N x) { return prime_factors(x, primes); });
-  MN fm = count_factors(fs);
-  N most_present_factor_count = max_count_present(fm);
+  VN primes = SoE(m+N(1));
+  N most_present_factor_count = count_max_present_prime(primes, A);
   // output
-  N ans = most_present_factor_count == -1
-    ? -1
-    : n - most_present_factor_count;
-  cout << ans << endl;
+  N answ = most_present_factor_count == 0 ? -1 : n - most_present_factor_count;
+  cout << answ << endl;
   return 0;
 }
