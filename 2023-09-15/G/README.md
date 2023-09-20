@@ -1,4 +1,4 @@
-# [1458 - A - Row GCD](https://codeforces.com/problemset/problem/1458/A)
+# [Codeforces 1244C - The Football Season](https://codeforces.com/problemset/problem/1244/C)
 
 ## Problem Data
 
