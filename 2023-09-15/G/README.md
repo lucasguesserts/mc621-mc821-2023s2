@@ -2,11 +2,11 @@
 
 ## Problem Data
 
-1. Input: $n, p, w, d \in \Z_+$
+1. Input: $n, p, w, d \in \mathbb{Z}_+$
    1. $1 \leqslant n  \leqslant 10^{12}$
    2. $1 \leqslant p \leqslant 10^{17}$
    3. $1 \leqslant d < w \leqslant 10^{5}$
-2. Output: $x, y, z \in \Z_+$
+2. Output: $x, y, z \in \mathbb{Z}_+$
    1. Constraints:
       1. $wx + dy = p$
       2. $x + y + z = n$
@@ -51,7 +51,7 @@ such condition, in programming languages, we would write as:
 
 Since $1 \leqslant d < 10^{5}$, we can test all values of $x$ from $0$ to $d-1$. We will call $0 \leqslant x_0 \leqslant d$ the first value which satisfy the above condition.
 
-Other values can be found with the function $x(s) = x_0 + ds, s \in \Z_+$.
+Other values can be found with the function $x(s) = x_0 + ds, s \in \mathbb{Z}_+$.
 
 If such value does not exist, then the problem does not have a solution.
 
