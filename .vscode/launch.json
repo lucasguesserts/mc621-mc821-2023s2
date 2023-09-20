@@ -35,7 +35,7 @@
             "program": "${fileDirname}/${fileBasenameNoExtension}.exec",
             "args": [
                 "<",
-                "${fileDirname}/test_cases/in_1.txt"
+                "${fileDirname}/test_cases/in_3.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
