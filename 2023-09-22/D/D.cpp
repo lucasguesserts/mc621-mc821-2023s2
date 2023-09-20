@@ -8,19 +8,19 @@ using VI = vector<I>;
 
 constexpr I M = 998244353;
 
-void egcd(I a, I b, I &d, I &x, I &y) {
-  if (b == 0) {
-    d = a;
-    x = 1;
-    y = 0;
+void egcd(I a, I b, I & d, I & x, I & y) {
+    if (b == 0) {
+        d = a;
+        x = 1;
+        y = 0;
+        return;
+    }
+    egcd(b, a % b, d, x, y);
+    I x1 = y;
+    I y1 = x - (a / b) * y;
+    x = x1;
+    y = y1;
     return;
-  }
-  egcd(b, a % b, d, x, y);
-  I x1 = y;
-  I y1 = x - (a / b) * y;
-  x = x1;
-  y = y1;
-  return;
 }
 
 I mod_inv(I a) {
@@ -38,14 +38,14 @@ VI mod_inv(VI A) {
 }
 
 VI fact(I n) {
-    VI N(n+1, I(1));
+    VI N(n + 1, I(1));
     for (I i = 1; i <= n; ++i) {
         N[i] = (i * N[i - 1]) % M;
     }
     return N;
 }
 
-int main () {
+int main() {
     I n;
     cin >> n;
     auto N = fact(n);

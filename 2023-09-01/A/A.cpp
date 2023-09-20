@@ -1,9 +1,9 @@
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
-int main () {
+int main() {
     auto number_of_test_cases = unsigned(0);
     cin >> number_of_test_cases;
     for (auto test_case_index = 0u; test_case_index < number_of_test_cases; ++test_case_index) {

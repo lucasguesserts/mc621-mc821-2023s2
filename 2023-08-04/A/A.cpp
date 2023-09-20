@@ -8,7 +8,7 @@ unsigned get_number_of_cases() {
     return n;
 }
 
-char* get_case_input() {
+char * get_case_input() {
     auto c = new char[3];
     cin >> c[0] >> c[1] >> c[2];
     return c;

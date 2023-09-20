@@ -1,5 +1,5 @@
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <utility>
 #include <vector>
 
@@ -12,10 +12,12 @@ struct Bounds {
     int upper;
 
     Bounds(const int lower, const int upper)
-    : lower(lower), upper(upper) {};
+        : lower(lower)
+        , upper(upper){};
 
     Bounds()
-    : lower (0), upper(1000000000) {};
+        : lower(0)
+        , upper(1000000000){};
 };
 
 using BoundVector = vector<Bounds>;
@@ -37,10 +39,10 @@ Pile get_pile(const int pile_size) {
     return pile;
 }
 
-BoundVector get_bounds(const Pile& pile, const int tolerance) {
+BoundVector get_bounds(const Pile & pile, const int tolerance) {
     BoundVector bounds;
     bounds.reserve(pile.size());
-    for (const auto & value: pile) {
+    for (const auto & value : pile) {
         bounds.push_back({max(value - tolerance, 0), value + tolerance});
     }
     return bounds;
@@ -65,7 +67,7 @@ int main() {
         const auto pile_bounds = get_bounds(pile, tolerance);
         auto reset_counter = int{0};
         auto bounds = Bounds{};
-        for (const auto & food_bounds: pile_bounds) {
+        for (const auto & food_bounds : pile_bounds) {
             if (do_intervals_have_intersection(bounds, food_bounds)) {
                 update_bounds(bounds, food_bounds);
             } else {
