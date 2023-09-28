@@ -1,11 +1,13 @@
-#include <iostream>
 #include <cstdint>
+#include <iostream>
 
-#define MAXN    100
+#define MAXN 100
 
 // typedef unsigned value_t;
 typedef uint64_t value_t;
-typedef struct { value_t mat[MAXN][MAXN]; } Matrix;
+typedef struct {
+    value_t mat[MAXN][MAXN];
+} Matrix;
 
 Matrix adj;
 Matrix pot;
@@ -32,7 +34,7 @@ value_t dot(Matrix A, int line, Matrix B, int col, int n) {
     value_t res = 0;
     int k;
     for (k = 0; k < n; k++)
-        res += A.mat[line][k]*B.mat[k][col];
+        res += A.mat[line][k] * B.mat[k][col];
     return res;
 }
 
@@ -46,7 +48,7 @@ Matrix matrix_mul(Matrix A, Matrix B, int n) {
 
 void matrix_pot(int n, int p) {
     if (p == 1) return;
-    matrix_pot(n, p/2);
+    matrix_pot(n, p / 2);
     pot = matrix_mul(pot, pot, n);
     if (p % 2) pot = matrix_mul(pot, adj, n);
 }
@@ -61,14 +63,13 @@ value_t paths_from_source(int s, int n) {
 
 int main() {
     int n, m, s, t;
-    cin >> n >> m >> s >> t; 
+    cin >> n >> m >> s >> t;
     initialize_matrices(n);
     read_matrix(m);
     if (t > 0) {
         matrix_pot(n, t);
         cout << paths_from_source(s, n) << endl;
-    }
-    else {
+    } else {
         cout << "0" << endl;
     }
     return 0;

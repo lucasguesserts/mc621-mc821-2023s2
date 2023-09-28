@@ -1,9 +1,9 @@
+#include <algorithm>
 #include <iostream>
 #include <ostream>
-#include <vector>
 #include <string>
 #include <unordered_map>
-#include <algorithm>
+#include <vector>
 
 using namespace std;
 
@@ -18,7 +18,7 @@ struct Account {
     int amount;
 };
 
-int main () {
+int main() {
     auto current_case_index = unsigned{0};
 
     while (true) {
@@ -45,15 +45,15 @@ int main () {
 
         // Solution
         auto balance = unordered_map<string, int>();
-        for (const auto & traveller: travellers) {
+        for (const auto & traveller : travellers) {
             balance[traveller] = 0;
         }
-        for (const auto & t: transactions) {
+        for (const auto & t : transactions) {
             balance[t.source] -= t.amount;
             balance[t.target] += t.amount;
         }
         auto v_balance = vector<Account>();
-        for (const auto & x: balance) {
+        for (const auto & x : balance) {
             v_balance.push_back({x.first, x.second});
         }
         sort(v_balance.begin(), v_balance.end(), [](const Account & lhs, const Account & rhs) { return lhs.amount < rhs.amount; });
@@ -67,7 +67,7 @@ int main () {
             auto reverse_transaction = Transaction();
             reverse_transaction.source = v_balance[most_positive].owner;
             reverse_transaction.target = v_balance[most_negative].owner;
-            reverse_transaction.amount = min(v_balance[most_positive].amount, - v_balance[most_negative].amount);
+            reverse_transaction.amount = min(v_balance[most_positive].amount, -v_balance[most_negative].amount);
             reverse_transactions.push_back(reverse_transaction);
             v_balance[most_positive].amount -= reverse_transaction.amount;
             v_balance[most_negative].amount += reverse_transaction.amount;
@@ -76,7 +76,7 @@ int main () {
         }
 
         cout << "Case #" << current_case_index << endl;
-        for (const auto & reverse_transaction: reverse_transactions) {
+        for (const auto & reverse_transaction : reverse_transactions) {
             cout << reverse_transaction.source << " " << reverse_transaction.target << " " << reverse_transaction.amount << endl;
         }
         cout << endl;

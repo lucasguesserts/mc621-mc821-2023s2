@@ -1,10 +1,10 @@
-#include <iostream>
 #include <cmath>
+#include <iostream>
 #include <math.h>
 
 using namespace std;
 
-int main () {
+int main() {
     auto x = unsigned{0};
     cin >> x;
     auto current_2_factor = unsigned{0};

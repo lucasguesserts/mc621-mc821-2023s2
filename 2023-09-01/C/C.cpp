@@ -1,15 +1,15 @@
-#include <iostream>
-#include <iomanip>
 #include <cmath>
+#include <iomanip>
+#include <iostream>
 
 using namespace std;
 
 double prob_win(unsigned target, double p, unsigned n) {
-    double q = 1-p;
-    return (p == 0.0) ? 0.0 : (pow(q, target-1)*p)/(1-pow(q,n));
+    double q = 1 - p;
+    return (p == 0.0) ? 0.0 : (pow(q, target - 1) * p) / (1 - pow(q, n));
 }
 
-int main () {
+int main() {
     int number_of_cases;
     cin >> number_of_cases;
 

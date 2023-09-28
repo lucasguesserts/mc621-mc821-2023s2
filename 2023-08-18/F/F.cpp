@@ -1,10 +1,10 @@
+#include <iomanip>
 #include <ios>
 #include <iostream>
-#include <iomanip>
 
 using namespace std;
 
-int main () {
+int main() {
     auto a = double{0};
     auto b = double{0};
     auto c = double{0};

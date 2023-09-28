@@ -23,7 +23,7 @@ I exp(I y) {
     }
 }
 
-int main () {
+int main() {
     I w, h;
     cin >> w >> h;
     I W = exp(w);
