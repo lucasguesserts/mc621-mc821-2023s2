@@ -12,10 +12,10 @@ Define the sequence $L_1, L_2, \ldots$ as $L_N = S_N \pmod{10}$, i.e. the last d
 of $S_N$. It is $L_N$ that we wish to compute.
 
 We implement a function `last_digit_pow(a, b)` that returns $a^b \pmod{10}$. Then we
-can compute many terms of the sequence $(L_i)_{i\geq 0}$ as such:
+can compute many terms of the sequence $(L_i)_{i\geq 1}$ as such:
 
 ```
-L[0] = 1
+L[1] = 1
 L[n] = (L[n-1] + last_digit_pow(n, n)) % 10
 ```
 
