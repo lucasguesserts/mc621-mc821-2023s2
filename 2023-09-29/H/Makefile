@@ -3,8 +3,7 @@ TARGET = H
 .PHONY: $(TARGET), clean
 
 $(TARGET):
-	g++ -g -lm -std=c++17 -o $(TARGET).exec $(TARGET).cpp
-	./$(TARGET).exec < in.txt > out.txt
+	python3 $(TARGET).py < in.txt > out.txt
 	@echo -e "\n=== Output ==="
 	@cat out.txt
 	@echo -e "\n=== Diff ==="
@@ -12,4 +11,4 @@ $(TARGET):
 	@echo -e " "
 
 clean:
-	rm -rf $(TARGET).exec out.txt
+	rm -rf out.txt
