@@ -1,15 +1,15 @@
-#include <iostream>
 #include <bitset>
-#include <vector>
 #include <cstdint>
+#include <iostream>
+#include <vector>
 
-#define MAX_SIEVE_SIZE      35000   // > SQRT(MAXN)
+#define MAX_SIEVE_SIZE 35000 // > SQRT(MAXN)
 
 using namespace std;
 
-vector<uint32_t>        _primes;
-uint32_t                _sieve_size;
-bitset<MAX_SIEVE_SIZE>  _is_prime;
+vector<uint32_t> _primes;
+uint32_t _sieve_size;
+bitset<MAX_SIEVE_SIZE> _is_prime;
 
 void sieve(uint32_t sieve_limit) {
     _sieve_size = sieve_limit + 1;
@@ -18,7 +18,8 @@ void sieve(uint32_t sieve_limit) {
     for (uint32_t i = 0; i < _sieve_size; i++) {
         if (!_is_prime[i]) continue;
         _primes.push_back(i);
-        for (uint32_t j = i*i; j < _sieve_size; j += i) _is_prime[j] = 0;
+        for (uint32_t j = i * i; j < _sieve_size; j += i)
+            _is_prime[j] = 0;
     }
 }
 

@@ -1,5 +1,5 @@
-#include <iostream>
 #include <cstdint>
+#include <iostream>
 
 using namespace std;
 
@@ -13,15 +13,16 @@ void show_number(uint64_t k) {
     unsigned rep[16];
     unsigned size = 0;
     while (k) {
-        unsigned digit = k % 9; 
-        rep[size++] = (digit < 4)? digit : digit+1;
+        unsigned digit = k % 9;
+        rep[size++] = (digit < 4) ? digit : digit + 1;
         k /= 9;
     }
-    while (size) cout << rep[--size];
+    while (size)
+        cout << rep[--size];
     cout << endl;
 }
 
-int main () {
+int main() {
     unsigned ncases;
     cin >> ncases;
     while (ncases--) {
