@@ -50,10 +50,12 @@ inline void hash_combine(I & seed, const I & v) {
 }
 
 I compute_hash(const MII & lords) {
-    I hash = 0;
-    for (const auto & lord : lords) {
-        hash_combine(hash, lord.first);
-        hash_combine(hash, lord.second);
+    I first_pin = lords.begin()->first;
+    I hash = first_pin;
+    I pin = lords.begin()->second;
+    while (pin != first_pin) {
+        hash_combine(hash, pin);
+        pin = lords.at(pin);
     }
     return hash;
 }
