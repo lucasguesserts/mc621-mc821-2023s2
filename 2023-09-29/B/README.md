@@ -1,2 +1,4 @@
-# [PROBLEM_NAME](PROBLEM_LINK)
+# [Kattis - Party Game](https://open.kattis.com/problems/partygame)
+
+
 
