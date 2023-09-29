@@ -1,13 +1,13 @@
 # [UVa 10090 - Marbles](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=12&page=show_problem&problem=1031)
 
 1. Input:
-   1. $n \in \N$ marbles;
+   1. $n \in \mathbb{N}$ marbles;
    2. Box type 1:
-      1. holds $n_1 \in \N$ marbles;
-      2. costs $c_1 \in \R_+$;
+      1. holds $n_1 \in \mathbb{N}$ marbles;
+      2. costs $c_1 \in \mathbb{R}_+$;
    2. Box type 2:
-      1. holds $n_2 \in \N$ marbles;
-      2. costs $c_2 \in \R_+$;
+      1. holds $n_2 \in \mathbb{N}$ marbles;
+      2. costs $c_2 \in \mathbb{R}_+$;
 2. Output:
    $$
     \begin{array}{ll}
@@ -26,7 +26,7 @@ has a solution if and only if $d$ divides $n$, i.e. $n \text{ mod } d = 0$. In t
 
 $$t = \dfrac{n}{d}$$
 
-Let $x, y \in \Z$ be the solutions of
+Let $x, y \in \mathbb{Z}$ be the solutions of
 
 $$n_1 x + n_2 y = d$$
 
