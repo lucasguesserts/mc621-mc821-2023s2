@@ -1,31 +1,22 @@
-#include <cstdint>
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-using I = long long int;
-
-I find_min_length(const string & s, const I b, const I e) {
-    if (b > e) {
-        return I(0);
-    }
-    else if (s[b] != s[e]) {
-        return find_min_length(s, b+1, e-1);
-    } else {
-        return e - b + 1;
-    }
+unsigned shortest_starting(string s, int len) {
+    int first, last;
+    for (first = 0, last = len-1; s[first++] != s[last--] && len; len -= 2);
+    return len;
 }
 
-int main() {
-    I T, n;
-    string s;
-    cin >> T;
-    while (T--) {
-        if (cin.eof()) break;
-        cin >> n;
-        cin >> s;
-        cout << find_min_length(s, 0, n-1) << endl;
+int main () {
+    int ncases;
+    cin >> ncases;
+    while (ncases--) {
+        int len;
+        string in;
+        cin >> len >> in;
+        cout << shortest_starting(in, len) << endl;
     }
     return 0;
 }

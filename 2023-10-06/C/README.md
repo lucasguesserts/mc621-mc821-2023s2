@@ -1,26 +1,15 @@
-# [Prepend and Append](https://codeforces.com/problemset/problem/1791/C)
+# [Codeforces 1791C - Prepend and Append](https://codeforces.com/problemset/problem/1791/C)
 
-Given an initial binary string `s`, the two possible operations give us
+Let the string $s$ be:
 
-* `1s0`; or
-* `0s1`.
+$$ s = s_0 s_1 \dots s_{n-1} $$
 
-Thus, to find out the smallest possible initial string given the final
-result, we simply check for how many steps we can "shave off" the extremes
-of the resulting string, i.e., how many pairs of differing bits are in either
-end of the string.
+Now one is looking for the first time in the string when characters in opposite positions are equal. Let $f$ be the function which give us the solution to the problem:
 
-For instance, if the result is `101110`, then the "shedding" process gives
+$$ f(s, b, e) = \begin{cases}
+0, & \text{if } b > e \\
+f(s, b+1, e-1), & \text{if } (s[b] \neq s[e]) \\
+e - b + 1, & \text{otherwise}
+\end{cases}$$
 
-1. 101110
-2. 0111
-3. 11
-
-This last one has differing bits in either end, so it is the smallest
-string and the answer in this case is its length `2`.
-
-Of course, there is no need to actually transform the string. We can
-simply maintain two indices, one starting from index `0` and going right,
-the other starting at the last index of the string and going left.
-
-When the two indices point to equal bits, we can stop the process.
+It is a recursive call which does not copy the string, it just searches through it. Complexity: $\mathcal{O}(n)$.
