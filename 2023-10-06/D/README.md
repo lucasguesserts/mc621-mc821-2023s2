@@ -41,5 +41,7 @@ at the start of $b_1, b_2, \ldots, b_{n+1}$. The start of $b_{n+2}$ is not a mat
 because from then on the rest of the string is too short to match $s$ which is $n$
 copies of $b$.
 
-Thus, we can use either KMP or Regular Expressions to count every match of $s$
+Thus, we to count every match of $s$
 in $s^2$. We then have to discount one of these matches, as discussed above.
+The counting can be done through KMP. Regular Expressions will not work because
+they will only find two matches: at start of $b_1$ and $b_{n+1}$.
