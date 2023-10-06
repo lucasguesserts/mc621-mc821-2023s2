@@ -1,58 +1,62 @@
+// https://codeforces.com/blog/entry/83614
+
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <vector>
 
 using namespace std;
 
-using I = long long int;
-using VI = vector<I>;
+using li = long long int;
 
-I find(string & s, VI & v, char c, I b) {
-    for (I i = s.size() - 1; i > b; --i) {
-        if (s[i] == c)
-            if (v[i] < v[b])
-                return i;
-    }
-    return I(-1);
+const int N = 200 * 1000 + 13;
+
+int n;
+string s;
+string revS;
+vector<int> posS[30];
+vector<int> posT[30];
+int cnt[30];
+int t[N];
+
+inline int sum(int r) {
+    int result = 0;
+    for (; r >= 0; r = (r & (r + 1)) - 1)
+        result += t[r];
+    return result;
 }
 
-void opt(string & s, VI & v) {
-    for (I i = 0; i < s.size(); ++i) {
-        char c = s[i];
-        I p = find(s, v, c, i);
-        if (p != -1) {
-            swap(v[i], v[p]);
-        }
-    }
-    return;
+inline void inc(int i, int d) {
+    for (; i < n; i = (i | (i + 1)))
+        t[i] += d;
 }
 
-I bubble_sort(VI & arr) {
-    // https://www.geeksforgeeks.org/bubble-sort-in-cpp/
-    I i, j;
-    I n = arr.size();
-    I count = 0;
-    for (i = 0; i < n - 1; i++) {
-        for (j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                swap(arr[j], arr[j + 1]);
-                ++count;
-            }
-        }
+int sum(int l, int r) {
+    return sum(r) - sum(l - 1);
+}
+
+inline void solve() {
+    revS = s;
+    reverse(revS.begin(), revS.end());
+    for (int i = 0; i < s.size(); i++) {
+        posS[s[i] - 'a'].push_back(i);
+        posT[revS[i] - 'a'].push_back(i);
     }
-    return count;
+    li ans = 0;
+    for (int i = 0; i < revS.size(); i++) {
+        int let = revS[i] - 'a';
+        int cur = posS[let][cnt[let]];
+        int oldC = cur;
+        cur += sum(cur, n - 1);
+        int need = i;
+        ans += cur - need;
+        inc(oldC, 1);
+        cnt[let]++;
+    }
+    cout << ans;
 }
 
 int main() {
-    I n, count;
-    string s;
-    cin >> n;
-    cin >> s;
-    VI v(n);
-    for (I i = 0; i < n; ++i) {
-        v[i] = n - i - 1;
-    }
-    opt(s, v);
-    cout << bubble_sort(v);
-    return 0;
+    cin >> n >> s;
+    solve();
 }
