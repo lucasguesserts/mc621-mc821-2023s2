@@ -18,3 +18,28 @@ One can see the possible positions of Dreamoon as a binary tree. First, notice t
 If it is a leaf node, then one has to increase the probability that Dreamoon reaches the position of the leaf by the probability of the leaf (use a map for storing such values).
 
 In the end, one just has to chech the probability that Dreamoon reaches the position computed based on the commands sent.
+
+## A better way
+
+### Idea
+
+The ideia is, given the unknowns ?, to compute the number of interpretations of the signal that can get Dreamoon to the desired position and dive such value by the number of possible interpretations.
+
+Suppose there are 4 unknowns and Dreamoon must get from the position 0 to the position 2. Then any interpretation must have a balance of two positives, and the rest must cancel each other. Thus, the signal must be "+++-" or any permutation of it. The number of possible interpretations is $2^N$, being $N$ the number of unknowns. Thus the answer is:
+$$\dfrac{4!}{3!1!}\  / \ 2^4 = 0.25$$
+
+### Algorithm
+
+With the signal received, compute the "middle position" $p_m$. With the expected signal, compute the expected position $p_e$. Let $N$ be the number of unknow (?) signal received.
+
+Let $D = |p_m - p_e|$ be the absolute difference of those positions. Then let $Z = N - D$ the signals that must cancel each other.
+
+If $Z$ is odd, then it is impossible to cancel the remaining signals, which means that the probability to reach the desired position is zero. So, from now on, assume that $Z$ is even.
+
+Notice that either the number of positive or negative signals must be $\dfrac{Z}{2}$, and the other must be $N - \dfrac{Z}{2}$. So the number of interpretations $C$ of the signal that can get Dreamoon to the desired position is given by (it is a permutation with repetitions):
+$$C = \dfrac{N!}{\frac{Z}{2}! \left(N - \frac{Z}{2}\right)!}$$
+
+Let $A$ be the number of possible interpretations:
+$$A = 2^N$$
+
+Thus, the answer of the problem is $\dfrac{C}{A}$.
