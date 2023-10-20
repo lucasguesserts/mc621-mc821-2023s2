@@ -1,4 +1,4 @@
-# [Codeforces 1619A](https://codeforces.com/problemset/problem/1619/A)
+# [Codeforces 1619A - Square String?](https://codeforces.com/problemset/problem/1619/A)
 
 Let `s` be our string, `n` its length.
 
