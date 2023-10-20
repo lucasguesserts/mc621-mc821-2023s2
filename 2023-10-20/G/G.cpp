@@ -7,9 +7,8 @@ using namespace std;
 bool is_square(string s) {
     int n = s.length();
     if (n % 2) return false;
-    int i = 0, j = n/2;
-    while (i < n/2 && j < n)
-        if (s[i++] != s[j++]) return false;
+    for (int i = 0; i < n/2; i++)
+        if (s[i] != s[n/2+i]) return false;
     return true;
 }
 
