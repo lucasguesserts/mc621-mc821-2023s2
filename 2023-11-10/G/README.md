@@ -1,2 +1,3 @@
-# [PROBLEM_NAME](PROBLEM_LINK)
+# [Logo 2](https://open.kattis.com/problems/logo2)
+
 
