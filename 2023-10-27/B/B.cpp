@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <sstream>
 
 using namespace std;
 
@@ -63,7 +62,7 @@ int main () {
         if (cin.eof()) {
             break;
         }
-        s += "\b";
+        s += "\n";
         getline(cin, ns);
         stringstream ss(ns);
         ss >> m;
