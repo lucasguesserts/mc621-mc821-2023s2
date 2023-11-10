@@ -3,6 +3,9 @@
 #include <stdexcept>
 #include <string>
 
+// thanks to BrandonTang89 who wrote a nice description of their algorithm
+// https://github.com/BrandonTang89/Competitive_Programming_4_Solutions/blob/main/Chapter_7_Computational_Geometry/Basic_Geometry_Objects_with_Libraries/kattis_logo2.cpp
+
 using namespace std;
 
 using I = int64_t;
@@ -200,28 +203,29 @@ int main() {
             }
         }
         // solve
-#ifdef DEBUG
-        cout << "A = " << A.to_string() << endl;
-        cout << "B = " <<  B.to_string() << endl;
-#endif
-        B.invert();
-        A.invert();
-        auto U = A * B;
-#ifdef DEBUG
-        cout << "A-1 = " << A.to_string() << endl;
-        cout << "B-1 = " <<  B.to_string() << endl;
-#endif
-#ifdef DEBUG
-        cout << "U = " << U.to_string() << endl;
-#endif
+        const auto initial_position = Vector(C(0, 0), C(1, 0));
+        constexpr D TOLERANCE = 1e-6;
+        int correct_angle = -1;
+        auto final_position = Vector(C(0, 0), C(1, 0));
         switch (command_unknown.type) {
         case Command::Type::RotateLeft:
         case Command::Type::RotateRight:
-            cout << round(acos(U.data[1][1].real()) * 180 / PI);
+            for (int a = 0; a <= 359; ++a) {
+                auto command = command_unknown;
+                command.value = a;
+                auto M = A * command.matrix() * B;
+                final_position = M * initial_position;
+                if ((abs(final_position.data[0].real()) < TOLERANCE) && (abs(final_position.data[0].imag()) < TOLERANCE)) {
+                    correct_angle = a;
+                    break;
+                }
+            }
+            cout << correct_angle;
             break;
         case Command::Type::WalkForward:
         case Command::Type::WalkBackward:
-            cout << round(abs(U.data[0][1]));
+            final_position = A * B * initial_position;
+            cout << abs(final_position.data[0]);
             break;
         default:
             throw runtime_error("Unknown command type");
