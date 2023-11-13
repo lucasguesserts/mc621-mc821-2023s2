@@ -1,0 +1,31 @@
+5
+5
+bk ?
+rt 120
+bk 100
+rt 120
+bk 100
+5
+bk 100
+rt ?
+bk 100
+rt 120
+bk 100
+5
+bk 100
+rt 120
+bk ?
+rt 120
+bk 100
+5
+bk 100
+rt 120
+bk 100
+rt ?
+bk 100
+5
+bk 100
+rt 120
+bk 100
+rt 120
+bk ?
