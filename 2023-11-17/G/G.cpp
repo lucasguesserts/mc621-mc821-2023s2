@@ -2,9 +2,9 @@
 
 using namespace std;
 
-using I = int64_t;
-
 int main () {
-    cout << "Hello, World!" << endl;
+    double r;
+    cin >> r;
+    cout << (r - 1.0) << endl;
     return 0;
 }
