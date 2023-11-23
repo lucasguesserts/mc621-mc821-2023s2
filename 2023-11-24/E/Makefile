@@ -3,8 +3,8 @@ TARGET = E
 .PHONY: $(TARGET), clean
 
 $(TARGET):
-	g++ -g -lm -std=c++17 -o $(TARGET).exec $(TARGET).cpp
-	./$(TARGET).exec < in.txt > out.txt
+	g++ -g -lm -std=c++11 -o $(TARGET).exec $(TARGET).cpp
+	./$(TARGET).exec < in.txt | tee out.txt
 	@echo -e "\n=== Output ==="
 	@cat out.txt
 	@echo -e "\n=== Diff ==="
