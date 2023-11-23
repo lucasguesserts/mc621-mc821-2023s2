@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <iomanip>
+#include <string>
 
 using namespace std;
 
@@ -34,6 +36,10 @@ vec toVec(point a, point b) { // convert 2 points to vector a->b
     return vec(b.x - a.x, b.y - a.y);
 }
 
+double dist(point p1, point p2) { // Euclidean distance
+    return hypot(p1.x - p2.x, p1.y - p2.y);
+} // return double
+
 double cross(vec a, vec b) { return a.x * b.y - a.y * b.x; }
 
 // note: to accept collinear points, we have to change the `> 0'
@@ -65,26 +71,32 @@ void remove_duplicates(vector<point> & P) {
     P.erase(unique(P.begin(), P.end()), P.end());
 }
 
+// returns the perimeter of polygon P, which is the sum of
+// Euclidian distances of consecutive line segments (polygon edges)
+double perimeter(const vector<point> & P) { // by ref for efficiency
+    double ans = 0.0;
+    for (int i = 0; i < (int)P.size() - 1; ++i) // note: P[n-1] = P[0]
+        ans += dist(P[i], P[i + 1]); // as we duplicate P[0]
+    return ans;
+}
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    while (true) {
+    I T;
+    cin >> T;
+    while (T--) {
         I n;
+        double LI;
         vector<point> P;
-        cin >> n;
-        if (n == 0) break;
-        while (n--) {
-            I x, y;
-            cin >> x >> y;
-            P.push_back(point(x, y));
+        cin >> LI >> n;
+        P.resize(n);
+        for (I i = 0; i < n; ++i) {
+            cin >> P[i].x >> P[i].y;
         }
-        remove_duplicates(P);
         vector<point> CH = CH_Andrew(P);
-        if (CH.size() != 1 && CH[0] == CH.back()) { CH.pop_back(); }
-        cout << CH.size() << "\n";
-        for (const auto & p : CH) {
-            cout << p.x << " " << p.y << "\n";
-        }
+        auto L = max(LI, perimeter(CH));
+        cout << fixed << setprecision(5) << L << '\n';
     }
     return 0;
 }
