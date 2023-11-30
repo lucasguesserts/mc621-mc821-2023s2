@@ -1,0 +1,21 @@
+#!/bin/bash
+
+MAIN_README=$(realpath ./README.md)
+
+for DIR in $(ls -d 2023*)
+do
+    for P in $(ls -d $DIR/?)
+    do
+        P=$(basename $P)
+        README_FILE_PATH=$(realpath $DIR/$P/README.md)
+        STR=$(head -n 1 $README_FILE_PATH | sed 's/# /- /')
+        if [ -f $DIR/$P/$P.cpp ]
+        then
+            STR="$STR - [Code](./$DIR/$P/$P.cpp)"
+        elif [ -f $DIR/$P/$P.py ]
+        then
+            STR="$STR - [Code](./$DIR/$P/$P.py)"
+        fi
+        echo $STR >> $MAIN_README
+    done
+done

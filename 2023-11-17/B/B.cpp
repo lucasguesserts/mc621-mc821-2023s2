@@ -1,6 +1,52 @@
+// ==================== LICENSE ====================
+
+/*
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <https://unlicense.org>
+*/
+
+// ==================== Solution Description ====================
+
+/*
+# [All Different Directions](https://open.kattis.com/problems/alldifferentdirections)
+
+The problem is straight-forward: compute the final position for each person asked, take the average (componentwise), and then for each final position, compute the distance to the average value computed.
+
+For this implementation, one used complex values (because the complex set is isomorphic to $\mathbb{R}^2$):
+
+* Positions are represented by a complex value;
+* Angles can be converted to a complex value using: $c = \cos(\theta) + i \sin(\theta)$;
+* To rotate a complex number (rotate the angle being faced) by $\alpha$, multiply it by $c = \cos(\alpha) + i \sin(\alpha)$;
+* To walk a distance $d$, simply add $d \cdot a$ to the current position, where $a$ is the current angle being faced (as a complex number);
+*/
+
+// ==================== Code ====================
+
 #include <bits/stdc++.h>
-#include <sstream>
 #include <iomanip>
+#include <sstream>
 
 using namespace std;
 

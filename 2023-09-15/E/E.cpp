@@ -1,3 +1,46 @@
+// ==================== LICENSE ====================
+
+/*
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <https://unlicense.org>
+*/
+
+// ==================== Solution Description ====================
+
+/*
+# [Noldbach problem](https://codeforces.com/problemset/problem/17/A)
+
+Definition: Let $n \in \mathbb{N}$ be a Noldbach Number if it is a prime number and there are other two consecutive prime numbers $x, y \in \mathbb{N}$ such that $n = x + y + 1$.
+
+The constraints of the problem are: $n \in [2, 1000]$ and $k \in [0, 1000]$.
+
+First, we are going to compute, for all prime numbers $n <= 1000$, if it is a Noldbach Number or not. Then, given the input, it is a simple matter of counting and checking the condition.
+*/
+
+// ==================== Code ====================
+
 #include <algorithm>
 #include <array>
 #include <iostream>
