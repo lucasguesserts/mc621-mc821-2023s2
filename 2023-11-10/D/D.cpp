@@ -1,3 +1,55 @@
+// ==================== LICENSE ====================
+
+/*
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <https://unlicense.org>
+*/
+
+// ==================== Solution Description ====================
+
+/*
+# [Platforme](https://open.kattis.com/problems/platforme)
+
+There are at most $100$ platforms and the time limit is $1 s$, which means that a naive implementation which visits every platform for every platform is enough.
+
+The algorithm becomes very simple then:
+
+1. Initialize $L = 0$, the total length of pillars needed to support all the platforms;
+2. Add a platform to represent the floor: $G = \left\langle 0, 0, LIMIT \right\rangle$ (use $LIMIT = 10000$);
+3. For each platform $p = \left\langle y, x_i, x_f \right\rangle$:
+   1. Skip it if $y = 0$;
+   2. Let $c = \left\langle y, x \right\rangle$ be the cell where the a pillar will be placed;
+   3. Find a platform $p' = \left\langle y', x_i', x_f' \right\rangle$ which satisfy: $x_i' \leq x \leq x_f'-1$, $y' < y$ and $y'$ is the maximum possible;
+   4. Increase $L$ by $y - y'$;
+   5. Do the above procedure for the cell $\left\langle y, x_i \right\rangle$, and $\left\langle y, x_f - 1 \right\rangle$;
+
+Notice that one has to be careful with the $-1$ in some places...
+*/
+
+// ==================== Code ====================
+
 #include <bits/stdc++.h>
 
 using namespace std;

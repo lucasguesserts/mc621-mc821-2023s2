@@ -1,16 +1,86 @@
+// ==================== LICENSE ====================
+
+/*
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <https://unlicense.org>
+*/
+
+// ==================== Solution Description ====================
+
+/*
+# [UVa 10405 - Longest Common Subsequence](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1346)
+
+The Longest Common Subsequence (LCS) Problem is a classic problem in Computer Science
+and applications such as computational biology. The classic solution to LCS is a
+$\mathcal{O}(n^2)$ Dynamic Programming.
+
+Let $A$, of length $n$, and $B$, of length $m$, be the strings we're trying to
+match.
+
+We build a table `t` of dimensions $n+1$ by $m+1$.
+
+`t[i][j]` stores the maximum length of a common subsequence between the first
+$i-1$ members of $A$ and the first $j-1$ members of $B$.
+
+* `t[i][j] = 0` if either `i` or `j` is zero;
+* If `A[i-1] == B[j-1]`, then `t[i][j] = t[i-1][j-1] + 1`;
+* Otherwise, `A[i][j]` will be the best between `A[i-1][j]` and `A[i][j-1]`.
+
+___
+
+We can also solve this problem by employing the Needleman-Wunsch algorithm
+to find an alignment of maximum score, where we give a score of:
+
+* `0`, for insertions and deletions
+* `+1`, for a match
+* `-INFINITY`, for a mismatch
+
+(This is also a quadratic DP solution.)
+
+___
+
+Whatever the chosen solution, beware that an empty string is a valid line
+of input. Use `getline()` instead of `cin` in `C++`.
+
+(Python's `input()` should be agnostic to this issue.)*/
+
+// ==================== Code ====================
+
+#include <cstdint>
+#include <cstring>
 #include <iostream>
 #include <string>
-#include <cstring>
-#include <cstdint>
 using namespace std;
 
-#define MAX     1000
+#define MAX 1000
 
-#define INDEL       (+0)
-#define MATCH       (+1)
-#define MISMATCH    (-(1 << 30))
+#define INDEL (+0)
+#define MATCH (+1)
+#define MISMATCH (-(1 << 30))
 
-int64_t table[MAX+1][MAX+1];
+int64_t table[MAX + 1][MAX + 1];
 
 unsigned lcs(string A, string B) {
     int n = A.length(), m = B.length();
@@ -30,7 +100,7 @@ unsigned lcs(string A, string B) {
         }
     }
 
-  return table[n][m];
+    return table[n][m];
 }
 
 int main() {

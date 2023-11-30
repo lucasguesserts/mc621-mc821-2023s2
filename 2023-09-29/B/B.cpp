@@ -1,3 +1,49 @@
+// ==================== LICENSE ====================
+
+/*
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <https://unlicense.org>
+*/
+
+// ==================== Solution Description ====================
+
+/*
+# [Kattis - Party Game](https://open.kattis.com/problems/partygame)
+
+The ideia is to implement the game and identify cycles using a hash.
+
+1. Implement the game:
+   1. Each lord has a Pin and a Card (each one is a number);
+   2. Implement it using a map: pin -> card;
+2. to identify cycles, create the hash of the current status;
+   1. to know if there is a cycle, check if one has already seen the hash of the current status;
+   2. to create a hash, take the pins of all lords, starting with the first lord of the map;
+*/
+
+// ==================== Code ====================
+
 #include <cstddef>
 #include <functional>
 #include <iostream>

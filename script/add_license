@@ -1,0 +1,72 @@
+#!/bin/bash
+
+LICENSE_FILE_PATH="./LICENSE"
+
+append_cpp() {
+    CODE_FILE_PATH=$1
+    CODE_FILE_DIR=$(dirname $CODE_FILE_PATH)
+    README_FILE_PATH=$CODE_FILE_DIR/README.md
+    TEMP_FILE=$(mktemp)
+    touch $TEMP_FILE
+    # append license
+    echo -e "// ==================== LICENSE ====================\n" >> $TEMP_FILE
+    echo -e "/*" >> $TEMP_FILE
+    cat $LICENSE_FILE_PATH >> $TEMP_FILE
+    echo -e "*/" >> $TEMP_FILE
+    echo "" >> $TEMP_FILE
+    # append README
+    echo -e "// ==================== Solution Description ====================\n" >> $TEMP_FILE
+    echo -e "/*" >> $TEMP_FILE
+    cat $README_FILE_PATH >> $TEMP_FILE
+    echo -e "*/" >> $TEMP_FILE
+    echo "" >> $TEMP_FILE
+    # append code
+    echo -e "// ==================== Code ====================\n" >> $TEMP_FILE
+    cat $CODE_FILE_PATH >> $TEMP_FILE
+    mv $TEMP_FILE $CODE_FILE_PATH
+}
+
+append_py() {
+    CODE_FILE_PATH=$1
+    CODE_FILE_DIR=$(dirname $CODE_FILE_PATH)
+    README_FILE_PATH=$CODE_FILE_DIR/README.md
+    TEMP_FILE=$(mktemp)
+    touch $TEMP_FILE
+    # append license
+    echo -e "\"\"\"" >> $TEMP_FILE
+    echo -e "==================== LICENSE ====================\n" >> $TEMP_FILE
+    cat $LICENSE_FILE_PATH >> $TEMP_FILE
+    echo "" >> $TEMP_FILE
+    # append README
+    echo -e " ==================== Solution Description ====================\n" >> $TEMP_FILE
+    cat $README_FILE_PATH >> $TEMP_FILE
+    echo -e "\"\"\"" >> $TEMP_FILE
+    echo "" >> $TEMP_FILE
+    # append code
+    echo -e "# ==================== Code ====================\n" >> $TEMP_FILE
+    cat $CODE_FILE_PATH >> $TEMP_FILE
+    mv $TEMP_FILE $CODE_FILE_PATH
+}
+
+format_cpp () {
+    clang-format -i $1
+}
+
+format_py () {
+    black $1
+}
+
+CPP_FILES=$(find . -name "*.cpp")
+PY_FILES=$(find . -name "?.py")
+
+for FILE in $CPP_FILES
+do
+    append_cpp $FILE
+    format_cpp $FILE
+done
+
+for FILE in $PY_FILES
+do
+    append_py $FILE
+    format_py $FILE
+done
